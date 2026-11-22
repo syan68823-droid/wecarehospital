@@ -1,0 +1,1041 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>WeCare Hospital — Modern Compassionate Healthcare</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --primary: #0d9488;
+      --primary-dark: #0f766e;
+      --primary-light: #ccfbf1;
+      --primary-soft: #f0fdfa;
+      --navy: #0f172a;
+      --slate-700: #334155;
+      --slate-600: #475569;
+      --slate-500: #64748b;
+      --slate-300: #cbd5e1;
+      --slate-200: #e2e8f0;
+      --slate-100: #f1f5f9;
+      --bg: #f8fafc;
+      --white: #ffffff;
+      --danger: #ef4444;
+      --danger-soft: #fef2f2;
+      --warning: #d97706;
+      --warning-soft: #fffbeb;
+      --success: #059669;
+      --success-soft: #ecfdf5;
+      --info: #0284c7;
+      --info-soft: #f0f9ff;
+      --radius-sm: 8px;
+      --radius-md: 12px;
+      --radius-lg: 18px;
+      --shadow-sm: 0 1px 3px rgba(15, 23, 42, 0.06);
+      --shadow-md: 0 10px 25px -5px rgba(15, 23, 42, 0.08);
+      --shadow-lg: 0 20px 40px -10px rgba(15, 23, 42, 0.14);
+      --transition: all 0.22s ease;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: var(--bg); color: var(--navy); line-height: 1.6; }
+    button, input, select, textarea { font-family: inherit; }
+    .container { width: 100%; max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+
+    /* Top Bar */
+    .top-bar { background: var(--navy); color: #e2e8f0; font-size: 0.82rem; padding: 8px 0; }
+    .top-bar-inner { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; }
+    .emergency-pill { background: rgba(239, 68, 68, 0.18); color: #fca5a5; padding: 2px 10px; border-radius: 999px; font-weight: 600; margin-right: 6px; }
+
+    /* Header */
+    header { position: sticky; top: 0; z-index: 100; background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(12px); border-bottom: 1px solid var(--slate-200); }
+    .nav-wrapper { display: flex; align-items: center; justify-content: space-between; height: 74px; gap: 10px; }
+    .logo { display: flex; align-items: center; gap: 10px; font-weight: 800; font-size: 1.25rem; cursor: pointer; flex-shrink: 0; }
+    .logo-icon { width: 38px; height: 38px; border-radius: 10px; background: linear-gradient(135deg, var(--primary), #0284c7); color: var(--white); display: grid; place-items: center; }
+    .logo span { color: var(--primary); }
+    .nav-links { display: flex; align-items: center; gap: 4px; list-style: none; }
+    .nav-link { padding: 8px 12px; border-radius: var(--radius-sm); font-weight: 500; font-size: 0.92rem; color: var(--slate-600); cursor: pointer; border: none; background: transparent; transition: var(--transition); }
+    .nav-link:hover { color: var(--primary); background: var(--primary-soft); }
+    .nav-link.active { color: var(--primary-dark); background: var(--primary-light); font-weight: 600; }
+    .nav-actions { display: flex; align-items: center; gap: 8px; }
+    .user-pill { display: inline-flex; align-items: center; gap: 6px; background: var(--slate-100); border: 1px solid var(--slate-200); padding: 4px 10px 4px 5px; border-radius: 999px; font-size: 0.82rem; font-weight: 600; }
+    .user-avatar-sm { width: 24px; height: 24px; border-radius: 50%; background: var(--primary); color: var(--white); display: grid; place-items: center; font-size: 0.72rem; }
+
+    /* Buttons */
+    .btn { display: inline-flex; align-items: center; justify-content: center; gap: 6px; padding: 10px 18px; border-radius: var(--radius-sm); font-weight: 600; font-size: 0.9rem; cursor: pointer; border: 1px solid transparent; transition: var(--transition); white-space: nowrap; }
+    .btn:disabled { opacity: 0.6; cursor: not-allowed; }
+    .btn-primary { background: var(--primary); color: var(--white); }
+    .btn-primary:hover:not(:disabled) { background: var(--primary-dark); }
+    .btn-outline { background: var(--white); color: var(--navy); border-color: var(--slate-300); }
+    .btn-outline:hover:not(:disabled) { border-color: var(--primary); color: var(--primary); background: var(--primary-soft); }
+    .btn-soft { background: var(--primary-soft); color: var(--primary-dark); }
+    .btn-danger-soft { background: var(--danger-soft); color: var(--danger); border-color: #fecaca; }
+    .btn-sm { padding: 7px 12px; font-size: 0.82rem; }
+    .btn-xs { padding: 5px 9px; font-size: 0.76rem; }
+    .badge-count { background: var(--navy); color: var(--white); font-size: 0.72rem; padding: 1px 7px; border-radius: 999px; }
+    .mobile-toggle { display: none; background: transparent; border: 1px solid var(--slate-200); border-radius: var(--radius-sm); padding: 7px; cursor: pointer; }
+    .mobile-menu { display: none; }
+
+    /* Views & Sections */
+    .page-view { display: none; }
+    .page-view.active { display: block; }
+    .section { padding: 60px 0; }
+    .section-alt { background: var(--white); border-top: 1px solid var(--slate-200); border-bottom: 1px solid var(--slate-200); }
+    .section-header { text-align: center; max-width: 650px; margin: 0 auto 40px; }
+    .eyebrow { display: inline-block; color: var(--primary-dark); background: var(--primary-light); padding: 4px 12px; border-radius: 999px; font-size: 0.76rem; font-weight: 700; text-transform: uppercase; margin-bottom: 10px; }
+    .section-title { font-size: clamp(1.7rem, 3vw, 2.25rem); font-weight: 800; margin-bottom: 10px; }
+    .section-subtitle { color: var(--slate-600); }
+
+    /* Hero */
+    .hero { padding: 60px 0; background: radial-gradient(circle at top right, #ccfbf1 0%, #f8fafc 48%); border-bottom: 1px solid var(--slate-200); }
+    .hero-grid { display: grid; grid-template-columns: 1.15fr 0.85fr; gap: 40px; align-items: center; }
+    .hero h1 { font-size: clamp(2.1rem, 4vw, 3.2rem); line-height: 1.12; font-weight: 800; margin-bottom: 16px; }
+    .hero h1 span { color: var(--primary); }
+    .hero p { font-size: 1.04rem; color: var(--slate-600); margin-bottom: 24px; }
+    .hero-cta { display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 30px; }
+    .hero-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; padding-top: 20px; border-top: 1px solid var(--slate-200); }
+    .stat-num { font-size: 1.55rem; font-weight: 800; }
+    .stat-label { font-size: 0.83rem; color: var(--slate-500); }
+    .hero-card { background: var(--white); border-radius: var(--radius-lg); padding: 24px; box-shadow: var(--shadow-lg); border: 1px solid var(--slate-200); }
+    .quick-feature { display: flex; gap: 12px; padding: 12px; border-radius: var(--radius-md); background: var(--bg); border: 1px solid var(--slate-200); margin-bottom: 12px; }
+
+    /* Grids & Cards */
+    .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
+    .card { background: var(--white); border: 1px solid var(--slate-200); border-radius: var(--radius-md); padding: 22px; box-shadow: var(--shadow-sm); transition: var(--transition); }
+    .card:hover { box-shadow: var(--shadow-md); border-color: #99f6e4; }
+    .dept-icon { width: 48px; height: 48px; border-radius: 12px; background: var(--primary-soft); color: var(--primary); display: grid; place-items: center; margin-bottom: 14px; font-size: 1.35rem; }
+    .dept-meta { display: flex; align-items: center; justify-content: space-between; padding-top: 12px; margin-top: 12px; border-top: 1px solid var(--slate-100); font-size: 0.85rem; color: var(--slate-600); }
+
+    /* Departments & Doctors */
+    .dept-detail-card { background: var(--white); border: 1px solid var(--slate-200); border-radius: var(--radius-lg); padding: 24px; margin-bottom: 22px; }
+    .dept-detail-top { display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; flex-wrap: wrap; margin-bottom: 16px; }
+    .dept-doctors-strip { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; padding-top: 16px; border-top: 1px solid var(--slate-200); }
+    .mini-doc-card { background: var(--bg); border: 1px solid var(--slate-200); border-radius: var(--radius-md); padding: 14px; display: flex; flex-direction: column; justify-content: space-between; gap: 10px; }
+
+    .filter-bar { display: flex; flex-wrap: wrap; gap: 12px; background: var(--white); padding: 16px; border-radius: var(--radius-md); border: 1px solid var(--slate-200); margin-bottom: 24px; }
+    .filter-bar input { flex: 1; min-width: 220px; }
+    .filter-bar select { min-width: 180px; width: auto; }
+    .doc-card { display: flex; flex-direction: column; justify-content: space-between; }
+    .doc-header { display: flex; align-items: center; gap: 12px; margin-bottom: 12px; }
+    .avatar { width: 52px; height: 52px; border-radius: 50%; display: grid; place-items: center; font-weight: 700; color: var(--white); flex-shrink: 0; }
+    .doc-dept-pill { display: inline-block; font-size: 0.74rem; font-weight: 600; color: var(--primary-dark); background: var(--primary-soft); padding: 2px 9px; border-radius: 999px; margin-bottom: 3px; }
+    .doc-info-list { list-style: none; display: grid; gap: 6px; font-size: 0.86rem; color: var(--slate-600); margin-bottom: 16px; }
+    .doc-info-list li { display: flex; justify-content: space-between; border-bottom: 1px dashed var(--slate-200); padding-bottom: 4px; }
+
+    /* Banner & About */
+    .page-banner { background: linear-gradient(120deg, var(--navy), #134e4a); color: var(--white); padding: 46px 0; }
+    .page-banner h1 { font-size: clamp(1.8rem, 3.2vw, 2.5rem); font-weight: 800; margin-bottom: 8px; }
+    .page-banner p { color: #cbd5e1; max-width: 640px; }
+    .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; align-items: center; }
+    .highlight-box { background: linear-gradient(135deg, var(--primary-soft), #e0f2fe); border: 1px solid #99f6e4; border-radius: var(--radius-lg); padding: 28px; }
+    .values-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; }
+
+    /* Admin Portal */
+    .admin-login-wrapper { max-width: 440px; margin: 20px auto; background: var(--white); border: 1px solid var(--slate-200); border-radius: var(--radius-lg); padding: 30px; box-shadow: var(--shadow-lg); }
+    .admin-header-bar { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 14px; margin-bottom: 22px; }
+    .kpi-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 12px; margin-bottom: 22px; }
+    .kpi-card { background: var(--white); border: 1px solid var(--slate-200); border-radius: var(--radius-md); padding: 15px; }
+    .kpi-label { font-size: 0.74rem; font-weight: 700; color: var(--slate-500); text-transform: uppercase; }
+    .kpi-value { font-size: 1.6rem; font-weight: 800; margin-top: 4px; }
+    .admin-tabs { display: inline-flex; background: var(--slate-200); padding: 4px; border-radius: var(--radius-sm); margin-bottom: 18px; gap: 4px; }
+    .admin-tab-btn { border: none; background: transparent; padding: 8px 16px; border-radius: 6px; font-weight: 600; font-size: 0.88rem; color: var(--slate-600); cursor: pointer; }
+    .admin-tab-btn.active { background: var(--white); color: var(--navy); box-shadow: var(--shadow-sm); }
+    .table-card { background: var(--white); border: 1px solid var(--slate-200); border-radius: var(--radius-md); overflow-x: auto; }
+    .admin-table { width: 100%; border-collapse: collapse; min-width: 900px; font-size: 0.88rem; }
+    .admin-table th { background: var(--slate-100); text-align: left; padding: 12px 14px; font-size: 0.76rem; text-transform: uppercase; color: var(--slate-600); border-bottom: 1px solid var(--slate-200); }
+    .admin-table td { padding: 13px 14px; border-bottom: 1px solid var(--slate-100); vertical-align: middle; }
+    .status-badge { display: inline-block; padding: 3px 10px; border-radius: 999px; font-size: 0.75rem; font-weight: 700; }
+    .status-Confirmed { background: var(--success-soft); color: var(--success); }
+    .status-Pending { background: var(--warning-soft); color: var(--warning); }
+    .status-Completed { background: var(--info-soft); color: var(--info); }
+    .status-Cancelled { background: var(--danger-soft); color: var(--danger); }
+    .status-select { margin-top: 5px; padding: 4px 8px; border-radius: 6px; border: 1px solid var(--slate-300); font-size: 0.8rem; font-weight: 600; background: var(--white); }
+
+    /* Modals & Forms */
+    .modal-backdrop { position: fixed; inset: 0; background: rgba(15, 23, 42, 0.58); backdrop-filter: blur(4px); display: none; align-items: center; justify-content: center; padding: 20px; z-index: 999; }
+    .modal-backdrop.open { display: flex; }
+    .modal { background: var(--white); width: 100%; max-width: 620px; max-height: 92vh; overflow-y: auto; border-radius: var(--radius-lg); box-shadow: var(--shadow-lg); padding: 26px; }
+    .modal-sm { max-width: 440px; }
+    .modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 18px; padding-bottom: 12px; border-bottom: 1px solid var(--slate-200); }
+    .close-btn { background: var(--slate-100); border: none; width: 32px; height: 32px; border-radius: 50%; cursor: pointer; font-size: 1rem; }
+    .auth-tabs { display: grid; grid-template-columns: 1fr 1fr; background: var(--slate-100); padding: 4px; border-radius: var(--radius-sm); margin-bottom: 16px; }
+    .auth-tab { border: none; background: transparent; padding: 8px; border-radius: 6px; font-weight: 600; font-size: 0.88rem; color: var(--slate-600); cursor: pointer; }
+    .auth-tab.active { background: var(--white); color: var(--navy); box-shadow: var(--shadow-sm); }
+    .alert-banner { padding: 10px 14px; border-radius: var(--radius-sm); font-size: 0.86rem; margin-bottom: 14px; display: none; }
+    .alert-info { background: var(--primary-soft); border: 1px solid #99f6e4; color: var(--primary-dark); }
+    .alert-error { background: var(--danger-soft); border: 1px solid #fecaca; color: #b91c1c; }
+    .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .form-group { display: flex; flex-direction: column; gap: 5px; margin-bottom: 12px; }
+    .form-group.full { grid-column: 1 / -1; }
+    .form-group label { font-size: 0.84rem; font-weight: 600; color: var(--slate-700); }
+    .form-control { padding: 10px 12px; border: 1px solid var(--slate-300); border-radius: var(--radius-sm); font-size: 0.92rem; outline: none; width: 100%; background: var(--white); }
+    .form-control:focus { border-color: var(--primary); box-shadow: 0 0 0 3px rgba(13, 148, 136, 0.14); }
+    .slots-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
+    .slot-btn { padding: 8px 6px; border: 1px solid var(--slate-300); background: var(--white); border-radius: var(--radius-sm); font-size: 0.82rem; font-weight: 500; cursor: pointer; }
+    .slot-btn.selected { background: var(--primary); color: var(--white); border-color: var(--primary); }
+    .confirmation-card { text-align: center; padding: 12px 6px; }
+    .check-circle { width: 60px; height: 60px; border-radius: 50%; background: #d1fae5; color: #059669; display: grid; place-items: center; margin: 0 auto 14px; font-size: 1.6rem; }
+    .ticket-box { background: var(--bg); border: 1px dashed var(--slate-300); border-radius: var(--radius-md); padding: 16px; text-align: left; margin: 16px 0 20px; display: grid; gap: 6px; font-size: 0.9rem; }
+    .appointment-item { border: 1px solid var(--slate-200); border-radius: var(--radius-md); padding: 14px; margin-bottom: 10px; display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; flex-wrap: wrap; }
+
+    /* Footer */
+    footer { background: var(--navy); color: #cbd5e1; padding: 50px 0 24px; }
+    .footer-grid { display: grid; grid-template-columns: 1.5fr 1fr 1fr 1.2fr; gap: 28px; margin-bottom: 32px; }
+    footer h4 { color: var(--white); margin-bottom: 12px; }
+    footer ul { list-style: none; display: grid; gap: 8px; font-size: 0.88rem; }
+    footer ul li button { background: none; border: none; color: #cbd5e1; cursor: pointer; font-size: 0.88rem; padding: 0; }
+    footer ul li button:hover { color: #5eead4; }
+    .footer-bottom { border-top: 1px solid rgba(255, 255, 255, 0.1); padding-top: 18px; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 10px; font-size: 0.84rem; color: #94a3b8; }
+
+    @media (max-width: 1024px) { .kpi-grid { grid-template-columns: repeat(3, 1fr); } .user-pill span { display: none; } }
+    @media (max-width: 960px) { .hero-grid, .about-grid, .grid-3, .dept-doctors-strip, .values-grid, .footer-grid { grid-template-columns: 1fr 1fr; } .hero-grid { grid-template-columns: 1fr; } }
+    @media (max-width: 768px) {
+      .nav-links, .nav-actions .desktop-only { display: none; }
+      .mobile-toggle { display: inline-flex; }
+      .mobile-menu.open { display: flex; flex-direction: column; padding: 12px 20px 18px; border-top: 1px solid var(--slate-200); background: var(--white); gap: 8px; }
+      .grid-3, .dept-doctors-strip, .values-grid, .about-grid, .footer-grid, .form-grid, .kpi-grid { grid-template-columns: 1fr; }
+      .slots-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="top-bar">
+    <div class="container top-bar-inner">
+      <div><span class="emergency-pill">24/7 Emergency</span>Call Ambulance: <strong>+1 (800) 932-2731</strong></div>
+      <div>Open Daily: 24 Hours • care@wecarehospital.org</div>
+    </div>
+  </div>
+
+  <header>
+    <div class="container nav-wrapper">
+      <div class="logo" onclick="navigateTo('home')">
+        <div class="logo-icon">🏥</div>
+        <div>We<span>Care</span> Hospital</div>
+      </div>
+
+      <ul class="nav-links">
+        <li><button class="nav-link active" data-page="home" onclick="navigateTo('home')">Home</button></li>
+        <li><button class="nav-link" data-page="about" onclick="navigateTo('about')">About</button></li>
+        <li><button class="nav-link" data-page="departments" onclick="navigateTo('departments')">Departments</button></li>
+        <li><button class="nav-link" data-page="doctors" onclick="navigateTo('doctors')">Doctors</button></li>
+        <li><button class="nav-link" data-page="admin" onclick="navigateTo('admin')">Admin Portal</button></li>
+      </ul>
+
+      <div class="nav-actions">
+        <button class="btn btn-outline btn-sm desktop-only" id="headerAuthBtn" onclick="openAuthModal('signin')">Sign In / Sign Up</button>
+        <div id="headerUserControls" style="display: none; align-items: center; gap: 8px;">
+          <div class="user-pill">
+            <div class="user-avatar-sm" id="headerUserAvatar">U</div>
+            <span id="headerUserName">User</span>
+          </div>
+          <button class="btn btn-soft btn-sm desktop-only" id="headerAdminDashBtn" style="display:none;" onclick="navigateTo('admin')">
+            Admin Dashboard
+          </button>
+          <button class="btn btn-outline btn-sm desktop-only" id="headerMyBookingsBtn" onclick="openMyAppointments()">
+            My Bookings <span class="badge-count" id="bookingCountBadge">0</span>
+          </button>
+          <button class="btn btn-danger-soft btn-sm desktop-only" onclick="handleSignOut()">Sign Out</button>
+        </div>
+        <button class="btn btn-primary btn-sm" onclick="startBookingFlow()">Book Appointment</button>
+        <button class="mobile-toggle" onclick="toggleMobileMenu()">☰</button>
+      </div>
+    </div>
+
+    <div class="mobile-menu" id="mobileMenu">
+      <button class="nav-link active" data-page="home" onclick="navigateTo('home')">Home</button>
+      <button class="nav-link" data-page="about" onclick="navigateTo('about')">About</button>
+      <button class="nav-link" data-page="departments" onclick="navigateTo('departments')">Departments</button>
+      <button class="nav-link" data-page="doctors" onclick="navigateTo('doctors')">Doctors</button>
+      <button class="nav-link" data-page="admin" onclick="navigateTo('admin')">Admin Portal</button>
+      <div id="mobileAuthSection" style="display: grid; gap: 8px; padding-top: 8px; border-top: 1px solid var(--slate-200);"></div>
+    </div>
+  </header>
+
+  <main>
+    <!-- HOME PAGE -->
+    <section id="page-home" class="page-view active">
+      <div class="hero">
+        <div class="container hero-grid">
+          <div>
+            <span class="eyebrow">Trusted Multi-Specialty Care</span>
+            <h1>Compassionate Care. <span>Advanced Medicine.</span></h1>
+            <p>At WeCare Hospital, board-certified specialists deliver personalized treatment across 6 specialized medical departments.</p>
+            <div class="hero-cta">
+              <button class="btn btn-primary" onclick="startBookingFlow()">Book an Appointment</button>
+              <button class="btn btn-outline" onclick="navigateTo('departments')">Explore Departments</button>
+            </div>
+            <div class="hero-stats">
+              <div><div class="stat-num">18+</div><div class="stat-label">Specialist Doctors</div></div>
+              <div><div class="stat-num">6</div><div class="stat-label">Departments</div></div>
+              <div><div class="stat-num">24/7</div><div class="stat-label">Emergency Care</div></div>
+            </div>
+          </div>
+          <div class="hero-card">
+            <h3 style="margin-bottom: 14px;">Quick Patient & Admin Services</h3>
+            <div class="quick-feature"><span>🔐</span><div><strong>Unified Login</strong><div style="font-size:0.83rem;color:var(--slate-600);">Both Patients and Admin can sign in from the top Sign In button.</div></div></div>
+            <div class="quick-feature"><span>🩺</span><div><strong>3 Specialists Per Department</strong><div style="font-size:0.83rem;color:var(--slate-600);">Multiple experienced doctors in every department.</div></div></div>
+            <div class="quick-feature"><span>🚑</span><div><strong>24/7 Emergency & Labs</strong><div style="font-size:0.83rem;color:var(--slate-600);">MRI, CT scan, pathology, and emergency ICU.</div></div></div>
+            <button class="btn btn-soft" style="width:100%;" onclick="navigateTo('doctors')">Find a Doctor →</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="container">
+          <div class="section-header">
+            <span class="eyebrow">Centers of Excellence</span>
+            <h2 class="section-title">Medical Departments</h2>
+            <p class="section-subtitle">Each department features multiple experienced consultants.</p>
+          </div>
+          <div class="grid-3" id="homeDepartmentsGrid"></div>
+        </div>
+      </div>
+
+      <div class="section section-alt">
+        <div class="container">
+          <div class="section-header">
+            <span class="eyebrow">Our Medical Team</span>
+            <h2 class="section-title">Featured Specialists</h2>
+          </div>
+          <div class="grid-3" id="homeFeaturedDoctors"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ABOUT PAGE -->
+    <section id="page-about" class="page-view">
+      <div class="page-banner"><div class="container"><h1>About WeCare Hospital</h1><p>Patient-first healthcare backed by modern medicine since 2012.</p></div></div>
+      <div class="section">
+        <div class="container about-grid">
+          <div>
+            <span class="eyebrow">Our Story</span>
+            <h2 class="section-title">Healthcare Built Around Human Dignity</h2>
+            <p style="color: var(--slate-600); margin-bottom: 16px;">WeCare Hospital is a 250-bed tertiary care facility housing 6 clinical departments, digital diagnostics, modular operating theaters, and 24/7 ICU.</p>
+            <button class="btn btn-primary" onclick="startBookingFlow()">Schedule a Visit</button>
+          </div>
+          <div class="highlight-box">
+            <h3 style="margin-bottom: 12px;">Mission & Vision</h3>
+            <p style="margin-bottom: 12px;"><strong>Mission:</strong> Accessible, affordable, clinically superior healthcare through multidisciplinary teamwork.</p>
+            <p><strong>Vision:</strong> The region's most trusted hospital known for safety and compassion.</p>
+          </div>
+        </div>
+      </div>
+      <div class="section section-alt">
+        <div class="container values-grid">
+          <div class="card"><div class="dept-icon">🛡️</div><h3>Patient Safety</h3><p>Strict international sterilization & safety protocols.</p></div>
+          <div class="card"><div class="dept-icon">🤝</div><h3>Team Care</h3><p>Multiple specialists per department collaborating together.</p></div>
+          <div class="card"><div class="dept-icon">🔬</div><h3>Diagnostics</h3><p>3T MRI, 128-slice CT, and 24/7 laboratory.</p></div>
+          <div class="card"><div class="dept-icon">💬</div><h3>Transparency</h3><p>Honest consultations and clear treatment plans.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- DEPARTMENTS PAGE -->
+    <section id="page-departments" class="page-view">
+      <div class="page-banner"><div class="container"><h1>Medical Departments</h1><p>Every department has multiple specialist doctors ready for consultation.</p></div></div>
+      <div class="section"><div class="container" id="departmentsDetailContainer"></div></div>
+    </section>
+
+    <!-- DOCTORS PAGE -->
+    <section id="page-doctors" class="page-view">
+      <div class="page-banner"><div class="container"><h1>Our Doctors</h1><p>Browse all 18 specialist consultants across WeCare Hospital.</p></div></div>
+      <div class="section">
+        <div class="container">
+          <div class="filter-bar">
+            <input type="text" id="doctorSearchInput" class="form-control" placeholder="Search doctor by name, focus, or qualification..." oninput="renderDoctorsPage()" />
+            <select id="doctorDeptFilter" class="form-control" onchange="renderDoctorsPage()"><option value="all">All Departments (18 Doctors)</option></select>
+          </div>
+          <div class="grid-3" id="doctorsGrid"></div>
+          <div id="noDoctorsMsg" style="display:none; text-align:center; padding:40px; color:var(--slate-500);">No doctors matched your search.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ADMIN PORTAL PAGE -->
+    <section id="page-admin" class="page-view">
+      <div class="page-banner"><div class="container"><h1>WeCare Hospital — Admin Portal</h1><p>Authorized administrator access only (ms22117766@gmail.com).</p></div></div>
+      <div class="section">
+        <div class="container">
+          <div id="adminLoginGate" class="admin-login-wrapper">
+            <div style="text-align: center; margin-bottom: 20px;">
+              <div class="dept-icon" style="margin: 0 auto 10px;">🛡️</div>
+              <h2>Admin Sign In</h2>
+              <p style="font-size: 0.86rem; color: var(--slate-500);">Sign in with the authorized admin account</p>
+            </div>
+            <div class="alert-banner alert-info" id="adminInfoBanner"></div>
+            <div class="alert-banner alert-error" id="adminLoginError"></div>
+            <form id="adminLoginForm" onsubmit="handleAdminLogin(event)">
+              <div class="form-group">
+                <label for="adminEmailInput">Admin Email *</label>
+                <input type="email" id="adminEmailInput" class="form-control" placeholder="ms22117766@gmail.com" required />
+              </div>
+              <div class="form-group">
+                <label for="adminPasswordInput">Password *</label>
+                <input type="password" id="adminPasswordInput" class="form-control" placeholder="Enter admin password" required />
+              </div>
+              <button type="submit" class="btn btn-primary" style="width: 100%;" id="adminLoginBtn">Sign In to Admin Portal</button>
+            </form>
+          </div>
+
+          <div id="adminDashboard" style="display: none;">
+            <div class="admin-header-bar">
+              <div>
+                <span class="eyebrow" style="margin-bottom: 4px;">Admin Console</span>
+                <h2>All Bookings & Patient Management</h2>
+              </div>
+              <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+                <button class="btn btn-outline btn-sm" onclick="refreshAdminData()">↻ Refresh</button>
+                <button class="btn btn-primary btn-sm" onclick="openAdminBookingModal()">+ Add New Booking</button>
+              </div>
+            </div>
+
+            <div class="alert-banner alert-error" id="adminDashboardError"></div>
+
+            <div class="kpi-grid">
+              <div class="kpi-card"><div class="kpi-label">Total</div><div class="kpi-value" id="kpiTotal">0</div></div>
+              <div class="kpi-card"><div class="kpi-label">Confirmed</div><div class="kpi-value" style="color:var(--success);" id="kpiConfirmed">0</div></div>
+              <div class="kpi-card"><div class="kpi-label">Pending</div><div class="kpi-value" style="color:var(--warning);" id="kpiPending">0</div></div>
+              <div class="kpi-card"><div class="kpi-label">Completed</div><div class="kpi-value" style="color:var(--info);" id="kpiCompleted">0</div></div>
+              <div class="kpi-card"><div class="kpi-label">Cancelled</div><div class="kpi-value" style="color:var(--danger);" id="kpiCancelled">0</div></div>
+              <div class="kpi-card"><div class="kpi-label">Patients</div><div class="kpi-value" style="color:var(--primary);" id="kpiPatients">0</div></div>
+            </div>
+
+            <div class="admin-tabs">
+              <button class="admin-tab-btn active" id="adminTabBookings" onclick="switchAdminTab('bookings')">All Bookings</button>
+              <button class="admin-tab-btn" id="adminTabPatients" onclick="switchAdminTab('patients')">Registered Patients</button>
+            </div>
+
+            <div id="adminBookingsPanel">
+              <div class="filter-bar">
+                <input type="text" id="adminSearchInput" class="form-control" placeholder="Search ref ID, patient, phone, email, or doctor..." oninput="renderAdminBookingsTable()" />
+                <select id="adminDeptFilter" class="form-control" onchange="renderAdminBookingsTable()"><option value="all">All Departments</option></select>
+                <select id="adminStatusFilter" class="form-control" onchange="renderAdminBookingsTable()">
+                  <option value="all">All Statuses</option>
+                  <option value="Confirmed">Confirmed</option>
+                  <option value="Pending">Pending</option>
+                  <option value="Completed">Completed</option>
+                  <option value="Cancelled">Cancelled</option>
+                </select>
+              </div>
+              <div class="table-card">
+                <table class="admin-table">
+                  <thead><tr><th>Ref ID</th><th>Patient</th><th>Department & Doctor</th><th>Date & Time</th><th>Status</th><th>Manage</th></tr></thead>
+                  <tbody id="adminBookingsTbody"></tbody>
+                </table>
+              </div>
+            </div>
+
+            <div id="adminPatientsPanel" style="display: none;">
+              <div class="table-card">
+                <table class="admin-table">
+                  <thead><tr><th>Full Name</th><th>Email</th><th>Phone</th><th>Bookings</th><th>Action</th></tr></thead>
+                  <tbody id="adminPatientsTbody"></tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <div class="logo" style="color: var(--white); margin-bottom: 10px;" onclick="navigateTo('home')">
+            <div class="logo-icon">🏥</div><div>We<span>Care</span> Hospital</div>
+          </div>
+          <p style="font-size: 0.88rem; color: #94a3b8;">Compassionate, advanced medical care 24/7.</p>
+        </div>
+        <div>
+          <h4>Pages</h4>
+          <ul>
+            <li><button onclick="navigateTo('home')">Home</button></li>
+            <li><button onclick="navigateTo('about')">About</button></li>
+            <li><button onclick="navigateTo('departments')">Departments</button></li>
+            <li><button onclick="navigateTo('doctors')">Doctors</button></li>
+            <li><button onclick="navigateTo('admin')">Admin Portal</button></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Departments</h4>
+          <ul>
+            <li><button onclick="goToDepartmentDoctors('Cardiology')">Cardiology</button></li>
+            <li><button onclick="goToDepartmentDoctors('Neurology')">Neurology</button></li>
+            <li><button onclick="goToDepartmentDoctors('Orthopedics')">Orthopedics</button></li>
+            <li><button onclick="goToDepartmentDoctors('Pediatrics')">Pediatrics</button></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Contact</h4>
+          <ul>
+            <li>📍 450 Wellness Blvd</li>
+            <li>📞 +1 (800) 932-2731</li>
+            <li>✉️ care@wecarehospital.org</li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>© 2026 WeCare Hospital. All rights reserved.</span>
+        <span>Powered by Firebase</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- UNIFIED AUTH MODAL (BOTH PATIENT & ADMIN CAN LOGIN HERE) -->
+  <div class="modal-backdrop" id="authModal">
+    <div class="modal modal-sm">
+      <div class="modal-header">
+        <div>
+          <h3 id="authModalTitle">Sign In / Sign Up</h3>
+          <p style="font-size:0.8rem; color:var(--slate-500);">Patients & Admin Portal Access</p>
+        </div>
+        <button class="close-btn" onclick="closeAuthModal()">✕</button>
+      </div>
+      <div class="alert-banner alert-info" id="authPromptBanner">Please sign in or create an account before booking an appointment.</div>
+      <div class="alert-banner alert-error" id="authErrorBanner"></div>
+      <div class="auth-tabs">
+        <button type="button" class="auth-tab active" id="tabSignIn" onclick="switchAuthTab('signin')">Sign In (Patient / Admin)</button>
+        <button type="button" class="auth-tab" id="tabSignUp" onclick="switchAuthTab('signup')">Patient Sign Up</button>
+      </div>
+      <form id="signInForm" onsubmit="handleSignIn(event)">
+        <div class="form-group"><label>Email *</label><input type="email" id="signInEmail" class="form-control" placeholder="Patient or Admin email" required /></div>
+        <div class="form-group"><label>Password *</label><input type="password" id="signInPassword" class="form-control" placeholder="Enter password" required /></div>
+        <button type="submit" class="btn btn-primary" style="width:100%;" id="signInSubmitBtn">Sign In</button>
+      </form>
+      <form id="signUpForm" style="display:none;" onsubmit="handleSignUp(event)">
+        <div class="form-group"><label>Full Name *</label><input type="text" id="signUpName" class="form-control" required /></div>
+        <div class="form-group"><label>Phone Number *</label><input type="tel" id="signUpPhone" class="form-control" required /></div>
+        <div class="form-group"><label>Email *</label><input type="email" id="signUpEmail" class="form-control" required /></div>
+        <div class="form-group"><label>Password (min 6 chars) *</label><input type="password" id="signUpPassword" class="form-control" minlength="6" required /></div>
+        <button type="submit" class="btn btn-primary" style="width:100%;" id="signUpSubmitBtn">Create Account & Continue</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- PATIENT BOOKING MODAL -->
+  <div class="modal-backdrop" id="bookingModal">
+    <div class="modal">
+      <div class="modal-header"><h3>Book an Appointment</h3><button class="close-btn" onclick="closeBookingModal()">✕</button></div>
+      <div class="alert-banner alert-error" id="bookingErrorBanner"></div>
+      <form id="bookingForm" onsubmit="submitAppointment(event)">
+        <div class="form-grid">
+          <div class="form-group"><label>Department *</label><select id="bookDept" class="form-control" required onchange="populateDoctorSelect()"></select></div>
+          <div class="form-group"><label>Doctor *</label><select id="bookDoctor" class="form-control" required></select></div>
+          <div class="form-group"><label>Date *</label><input type="date" id="bookDate" class="form-control" required /></div>
+          <div class="form-group"><label>Patient Name *</label><input type="text" id="patientName" class="form-control" required /></div>
+          <div class="form-group full">
+            <label>Time Slot *</label>
+            <div class="slots-grid" id="timeSlotsGrid"></div>
+            <input type="hidden" id="selectedTimeSlot" required />
+          </div>
+          <div class="form-group"><label>Phone *</label><input type="tel" id="patientPhone" class="form-control" required /></div>
+          <div class="form-group"><label>Email *</label><input type="email" id="patientEmail" class="form-control" required /></div>
+          <div class="form-group full"><label>Reason</label><textarea id="visitReason" class="form-control" rows="2"></textarea></div>
+        </div>
+        <div style="display:flex; justify-content:flex-end; gap:10px;">
+          <button type="button" class="btn btn-outline" onclick="closeBookingModal()">Cancel</button>
+          <button type="submit" class="btn btn-primary" id="confirmBookingBtn">Confirm Appointment</button>
+        </div>
+      </form>
+      <div id="bookingConfirmation" class="confirmation-card" style="display:none;">
+        <div class="check-circle">✓</div>
+        <h3>Appointment Confirmed!</h3>
+        <div class="ticket-box" id="confirmationDetails"></div>
+        <button class="btn btn-outline" onclick="openMyAppointments()">View My Bookings</button>
+        <button class="btn btn-primary" onclick="closeBookingModal()">Done</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ADMIN ADD/EDIT BOOKING MODAL -->
+  <div class="modal-backdrop" id="adminBookingModal">
+    <div class="modal">
+      <div class="modal-header"><h3 id="adminModalTitle">Add New Booking</h3><button class="close-btn" onclick="closeAdminBookingModal()">✕</button></div>
+      <div class="alert-banner alert-error" id="adminBookingModalError"></div>
+      <form id="adminBookingForm" onsubmit="saveAdminBooking(event)">
+        <input type="hidden" id="adminEditFirestoreId" />
+        <div class="form-group" id="quickPatientWrap">
+          <label>Quick-Fill Registered Patient (Optional)</label>
+          <select id="adminQuickPatientSelect" class="form-control" onchange="fillPatientFromSelect()"></select>
+        </div>
+        <div class="form-grid">
+          <div class="form-group"><label>Department *</label><select id="adminBookDept" class="form-control" required onchange="populateAdminDoctorSelect()"></select></div>
+          <div class="form-group"><label>Doctor *</label><select id="adminBookDoctor" class="form-control" required></select></div>
+          <div class="form-group"><label>Date *</label><input type="date" id="adminBookDate" class="form-control" required /></div>
+          <div class="form-group"><label>Time *</label><select id="adminBookTime" class="form-control" required></select></div>
+          <div class="form-group"><label>Patient Name *</label><input type="text" id="adminPatientName" class="form-control" required /></div>
+          <div class="form-group"><label>Phone *</label><input type="tel" id="adminPatientPhone" class="form-control" required /></div>
+          <div class="form-group"><label>Email *</label><input type="email" id="adminPatientEmail" class="form-control" required /></div>
+          <div class="form-group">
+            <label>Status *</label>
+            <select id="adminBookStatus" class="form-control" required>
+              <option value="Confirmed">Confirmed</option>
+              <option value="Pending">Pending</option>
+              <option value="Completed">Completed</option>
+              <option value="Cancelled">Cancelled</option>
+            </select>
+          </div>
+          <div class="form-group full"><label>Reason / Notes</label><textarea id="adminVisitReason" class="form-control" rows="2"></textarea></div>
+        </div>
+        <div style="display:flex; justify-content:flex-end; gap:10px;">
+          <button type="button" class="btn btn-outline" onclick="closeAdminBookingModal()">Cancel</button>
+          <button type="submit" class="btn btn-primary" id="adminSaveBookingBtn">Save Booking</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- MY APPOINTMENTS MODAL -->
+  <div class="modal-backdrop" id="myAppointmentsModal">
+    <div class="modal">
+      <div class="modal-header">
+        <div><h3>My Bookings</h3><p style="font-size:0.82rem;color:var(--slate-500);" id="myAppointmentsSubtitle"></p></div>
+        <button class="close-btn" onclick="closeMyAppointments()">✕</button>
+      </div>
+      <div id="appointmentsListContainer"></div>
+      <div style="display:flex; justify-content:flex-end; margin-top:12px;">
+        <button class="btn btn-primary btn-sm" onclick="closeMyAppointments(); startBookingFlow();">+ Book Another</button>
+      </div>
+    </div>
+  </div>
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/13.4.0/firebase-app.js";
+    import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged, updateProfile } from "https://www.gstatic.com/firebasejs/13.4.0/firebase-auth.js";
+    import { getFirestore, doc, setDoc, getDoc, collection, addDoc, getDocs, updateDoc, deleteDoc, query, where, serverTimestamp } from "https://www.gstatic.com/firebasejs/13.4.0/firebase-firestore.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyCCKdJNc774yIIPTmz-b0CteEc2YYNz7kU",
+      authDomain: "wecare-hospital-8dff2.firebaseapp.com",
+      projectId: "wecare-hospital-8dff2",
+      storageBucket: "wecare-hospital-8dff2.firebasestorage.app",
+      messagingSenderId: "117003563615",
+      appId: "1:117003563615:web:7291cec58a277a937221ea"
+    };
+
+    const ADMIN_EMAIL = "ms22117766@gmail.com";
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const db = getFirestore(app);
+
+    const departments = [
+      { id: "Cardiology", icon: "❤️", name: "Cardiology", description: "Preventive cardiology, echocardiography, and cardiac care." },
+      { id: "Neurology", icon: "🧠", name: "Neurology", description: "Stroke, epilepsy, migraine, and nerve care." },
+      { id: "Orthopedics", icon: "🦴", name: "Orthopedics", description: "Joint replacement, sports injury, and spine care." },
+      { id: "Pediatrics", icon: "🧸", name: "Pediatrics", description: "Vaccinations, neonatal care, and child wellness." },
+      { id: "Dermatology", icon: "✨", name: "Dermatology", description: "Eczema, acne, allergy, and mole screening." },
+      { id: "Gynecology", icon: "🌸", name: "Gynecology & Obstetrics", description: "Maternity, prenatal care, and gynecology." }
+    ];
+
+    const doctors = [
+      { id: 1, name: "Dr. Elena Vance", department: "Cardiology", qualification: "MD, FACC", experience: "16 Yrs", focus: "Interventional Cardiology", availability: "Mon, Wed, Fri", fee: "$120", color: "#0d9488" },
+      { id: 2, name: "Dr. Marcus Sterling", department: "Cardiology", qualification: "MD, DM", experience: "12 Yrs", focus: "Electrophysiology", availability: "Tue, Thu, Sat", fee: "$110", color: "#0284c7" },
+      { id: 3, name: "Dr. Priya Nair", department: "Cardiology", qualification: "MD, MPH", experience: "9 Yrs", focus: "Preventive Cardiology", availability: "Mon - Fri", fee: "$95", color: "#0f766e" },
+      { id: 4, name: "Dr. Julian Thorne", department: "Neurology", qualification: "MD, PhD", experience: "18 Yrs", focus: "Stroke Care", availability: "Mon, Tue, Thu", fee: "$130", color: "#4f46e5" },
+      { id: 5, name: "Dr. Ayesha Khan", department: "Neurology", qualification: "MD, FAAN", experience: "11 Yrs", focus: "Epilepsy & EEG", availability: "Wed, Fri, Sat", fee: "$115", color: "#0d9488" },
+      { id: 6, name: "Dr. David Chen", department: "Neurology", qualification: "MD", experience: "8 Yrs", focus: "Migraine & Movement", availability: "Mon, Wed, Fri", fee: "$100", color: "#0369a1" },
+      { id: 7, name: "Dr. Robert Miller", department: "Orthopedics", qualification: "MS Ortho", experience: "19 Yrs", focus: "Joint Replacement", availability: "Mon, Tue, Thu", fee: "$125", color: "#0f766e" },
+      { id: 8, name: "Dr. Nadia Al-Mansoor", department: "Orthopedics", qualification: "MD, Sports", experience: "10 Yrs", focus: "Sports Injuries", availability: "Tue, Thu, Sat", fee: "$105", color: "#0284c7" },
+      { id: 9, name: "Dr. Samuel Brooks", department: "Orthopedics", qualification: "MS, Spine", experience: "14 Yrs", focus: "Spine Surgery", availability: "Mon, Wed, Fri", fee: "$120", color: "#334155" },
+      { id: 10, name: "Dr. Hannah Lin", department: "Pediatrics", qualification: "MD, FAAP", experience: "13 Yrs", focus: "Child Wellness", availability: "Mon - Fri", fee: "$85", color: "#059669" },
+      { id: 11, name: "Dr. Omar Farooq", department: "Pediatrics", qualification: "MD, NICU", experience: "15 Yrs", focus: "Neonatal Care", availability: "Tue, Thu, Sat", fee: "$95", color: "#0d9488" },
+      { id: 12, name: "Dr. Clara Gomez", department: "Pediatrics", qualification: "MD", experience: "9 Yrs", focus: "Pediatric Allergy", availability: "Mon, Wed, Sat", fee: "$90", color: "#0284c7" },
+      { id: 13, name: "Dr. Sofia Rossi", department: "Dermatology", qualification: "MD, FAAD", experience: "11 Yrs", focus: "Clinical Dermatology", availability: "Mon, Wed, Fri", fee: "$95", color: "#db2777" },
+      { id: 14, name: "Dr. Kevin Park", department: "Dermatology", qualification: "MD", experience: "8 Yrs", focus: "Mole Mapping", availability: "Tue, Thu, Sat", fee: "$100", color: "#0d9488" },
+      { id: 15, name: "Dr. Zara Patel", department: "Dermatology", qualification: "MD, DNB", experience: "7 Yrs", focus: "Acne & Hair Care", availability: "Mon - Thu", fee: "$85", color: "#7c3aed" },
+      { id: 16, name: "Dr. Miriam Wallace", department: "Gynecology", qualification: "MD, FACOG", experience: "17 Yrs", focus: "High-Risk Obstetrics", availability: "Mon, Tue, Thu", fee: "$115", color: "#be185d" },
+      { id: 17, name: "Dr. Fatima Hassan", department: "Gynecology", qualification: "FCPS", experience: "12 Yrs", focus: "Maternity Care", availability: "Wed, Fri, Sat", fee: "$100", color: "#0d9488" },
+      { id: 18, name: "Dr. Rachel Bennett", department: "Gynecology", qualification: "MD", experience: "10 Yrs", focus: "PCOS & Wellness", availability: "Mon, Wed, Fri", fee: "$95", color: "#0284c7" }
+    ];
+
+    const timeSlots = ["09:00 AM", "10:00 AM", "11:30 AM", "02:00 PM", "03:30 PM", "05:00 PM", "06:30 PM", "07:30 PM"];
+    let currentUser = null, currentUserProfile = null, userAppointments = [], allAdminBookings = [], allAdminPatients = [], pendingBooking = null;
+
+    const isAdminUser = (u = currentUser) => Boolean(u && u.email && u.email.toLowerCase() === ADMIN_EMAIL);
+    const getInitials = (n) => (n || "U").replace("Dr. ", "").trim().split(/\s+/).map(x => x[0]).slice(0, 2).join("").toUpperCase();
+    const getDoctorsByDept = (id) => doctors.filter(d => d.department === id);
+    const esc = (s) => String(s || "").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");
+
+    onAuthStateChanged(auth, async (user) => {
+      currentUser = user;
+      if (user) {
+        try {
+          const snap = await getDoc(doc(db, "users", user.uid));
+          currentUserProfile = snap.exists() ? snap.data() : { uid: user.uid, fullName: user.displayName || user.email.split("@")[0], email: user.email, phone: "" };
+        } catch { currentUserProfile = { uid: user.uid, fullName: user.email.split("@")[0], email: user.email, phone: "" }; }
+        await loadUserAppointments(user.uid);
+        updateAuthUI();
+        renderAdminState();
+
+        if (pendingBooking) {
+          const act = pendingBooking; pendingBooking = null; closeAuthModal();
+          act === "myBookings" ? openMyAppointments() : openBookingModal(act.deptId, act.doctorId);
+        } else if (isAdminUser(user) && document.getElementById("authModal").classList.contains("open")) {
+          closeAuthModal();
+          navigateTo("admin");
+        }
+      } else {
+        currentUserProfile = null; userAppointments = []; allAdminBookings = []; allAdminPatients = [];
+        updateAuthUI(); renderAdminState();
+      }
+    });
+
+    async function loadUserAppointments(uid) {
+      try {
+        const snap = await getDocs(query(collection(db, "appointments"), where("userId", "==", uid)));
+        userAppointments = snap.docs.map(d => ({ firestoreId: d.id, ...d.data() })).sort((a,b) => (b.createdAtMs||0)-(a.createdAtMs||0));
+      } catch { userAppointments = []; }
+      document.getElementById("bookingCountBadge").textContent = userAppointments.length;
+    }
+
+    function updateAuthUI() {
+      const btn = document.getElementById("headerAuthBtn"), ctrl = document.getElementById("headerUserControls"), mob = document.getElementById("mobileAuthSection");
+      const adminDashBtn = document.getElementById("headerAdminDashBtn");
+      if (currentUser) {
+        const admin = isAdminUser();
+        const name = admin ? "Admin" : (currentUserProfile?.fullName || "Patient");
+        btn.style.display = "none"; ctrl.style.display = "flex";
+        adminDashBtn.style.display = admin ? "inline-flex" : "none";
+        document.getElementById("headerUserName").textContent = name.split(" ")[0];
+        document.getElementById("headerUserAvatar").textContent = admin ? "AD" : getInitials(name);
+        mob.innerHTML = (admin ? `<button class="btn btn-soft btn-sm" onclick="navigateTo('admin'); toggleMobileMenu();">Admin Dashboard</button>` : "") +
+          `<button class="btn btn-outline btn-sm" onclick="openMyAppointments(); toggleMobileMenu();">My Bookings (${userAppointments.length})</button><button class="btn btn-danger-soft btn-sm" onclick="handleSignOut(); toggleMobileMenu();">Sign Out</button>`;
+      } else {
+        btn.style.display = "inline-flex"; ctrl.style.display = "none"; adminDashBtn.style.display = "none";
+        mob.innerHTML = `<button class="btn btn-outline btn-sm" onclick="openAuthModal('signin'); toggleMobileMenu();">Sign In / Sign Up</button>`;
+      }
+      document.getElementById("bookingCountBadge").textContent = userAppointments.length;
+    }
+
+    // UNIFIED AUTH MODAL (BOTH PATIENT & ADMIN)
+    function openAuthModal(mode = "signin", showPrompt = false) {
+      document.getElementById("authErrorBanner").style.display = "none";
+      document.getElementById("authPromptBanner").style.display = showPrompt ? "block" : "none";
+      switchAuthTab(mode); document.getElementById("authModal").classList.add("open");
+    }
+    function closeAuthModal() { document.getElementById("authModal").classList.remove("open"); }
+    function switchAuthTab(mode) {
+      const s = mode === "signin";
+      document.getElementById("tabSignIn").classList.toggle("active", s);
+      document.getElementById("tabSignUp").classList.toggle("active", !s);
+      document.getElementById("signInForm").style.display = s ? "block" : "none";
+      document.getElementById("signUpForm").style.display = s ? "none" : "block";
+      document.getElementById("authErrorBanner").style.display = "none";
+    }
+    async function handleSignIn(e) {
+      e.preventDefault();
+      const err = document.getElementById("authErrorBanner"), btn = document.getElementById("signInSubmitBtn");
+      err.style.display = "none"; btn.disabled = true; btn.textContent = "Signing in...";
+      try {
+        const email = document.getElementById("signInEmail").value.trim();
+        await signInWithEmailAndPassword(auth, email, document.getElementById("signInPassword").value);
+        document.getElementById("signInForm").reset();
+        if (email.toLowerCase() === ADMIN_EMAIL && !pendingBooking) {
+          closeAuthModal();
+          navigateTo("admin");
+        } else if (!pendingBooking) {
+          closeAuthModal();
+        }
+      } catch (ex) { err.textContent = ex.message; err.style.display = "block"; }
+      finally { btn.disabled = false; btn.textContent = "Sign In"; }
+    }
+    async function handleSignUp(e) {
+      e.preventDefault();
+      const err = document.getElementById("authErrorBanner"), btn = document.getElementById("signUpSubmitBtn");
+      err.style.display = "none";
+      const fullName = document.getElementById("signUpName").value.trim(), phone = document.getElementById("signUpPhone").value.trim(), email = document.getElementById("signUpEmail").value.trim(), password = document.getElementById("signUpPassword").value;
+      if (email.toLowerCase() === ADMIN_EMAIL) { err.textContent = "This email is reserved for Hospital Admin. Please use Sign In tab."; err.style.display = "block"; return; }
+      btn.disabled = true; btn.textContent = "Creating account...";
+      try {
+        const cred = await createUserWithEmailAndPassword(auth, email, password);
+        await updateProfile(cred.user, { displayName: fullName });
+        await setDoc(doc(db, "users", cred.user.uid), { uid: cred.user.uid, fullName, phone, email, role: "patient", createdAt: serverTimestamp() });
+        document.getElementById("signUpForm").reset();
+        if (!pendingBooking) closeAuthModal();
+      } catch (ex) { err.textContent = ex.message; err.style.display = "block"; }
+      finally { btn.disabled = false; btn.textContent = "Create Account & Continue"; }
+    }
+    async function handleSignOut() { await signOut(auth); closeMyAppointments(); closeBookingModal(); closeAdminBookingModal(); }
+
+    // ADMIN PORTAL
+    async function handleAdminLogin(e) {
+      e.preventDefault();
+      const err = document.getElementById("adminLoginError"), btn = document.getElementById("adminLoginBtn");
+      err.style.display = "none";
+      const email = document.getElementById("adminEmailInput").value.trim(), password = document.getElementById("adminPasswordInput").value;
+      if (email.toLowerCase() !== ADMIN_EMAIL) { err.textContent = `Access denied. Only ${ADMIN_EMAIL} can sign in.`; err.style.display = "block"; return; }
+      btn.disabled = true; btn.textContent = "Signing in...";
+      try {
+        await signInWithEmailAndPassword(auth, email, password);
+        document.getElementById("adminLoginForm").reset();
+      } catch (ex) { err.textContent = ex.message; err.style.display = "block"; }
+      finally { btn.disabled = false; btn.textContent = "Sign In to Admin Portal"; }
+    }
+
+    async function renderAdminState() {
+      const gate = document.getElementById("adminLoginGate"), dash = document.getElementById("adminDashboard"), info = document.getElementById("adminInfoBanner");
+      if (isAdminUser()) {
+        gate.style.display = "none"; dash.style.display = "block"; await refreshAdminData();
+      } else {
+        dash.style.display = "none"; gate.style.display = "block";
+        if (currentUser) { info.textContent = `Currently signed in as patient (${currentUser.email}). Sign in below with ${ADMIN_EMAIL} to access Admin Portal.`; info.style.display = "block"; }
+        else info.style.display = "none";
+      }
+    }
+
+    async function refreshAdminData() {
+      if (!isAdminUser()) return;
+      const err = document.getElementById("adminDashboardError"); err.style.display = "none";
+      try {
+        const [bSnap, uSnap] = await Promise.all([getDocs(collection(db, "appointments")), getDocs(collection(db, "users"))]);
+        allAdminBookings = bSnap.docs.map(d => ({ firestoreId: d.id, ...d.data() })).sort((a,b) => (b.createdAtMs||0)-(a.createdAtMs||0));
+        allAdminPatients = uSnap.docs.map(d => ({ firestoreId: d.id, ...d.data() }));
+        document.getElementById("kpiTotal").textContent = allAdminBookings.length;
+        document.getElementById("kpiConfirmed").textContent = allAdminBookings.filter(b => (b.status||"Confirmed")==="Confirmed").length;
+        document.getElementById("kpiPending").textContent = allAdminBookings.filter(b => b.status==="Pending").length;
+        document.getElementById("kpiCompleted").textContent = allAdminBookings.filter(b => b.status==="Completed").length;
+        document.getElementById("kpiCancelled").textContent = allAdminBookings.filter(b => b.status==="Cancelled").length;
+        document.getElementById("kpiPatients").textContent = allAdminPatients.length;
+        renderAdminBookingsTable(); renderAdminPatientsTable();
+        document.getElementById("adminQuickPatientSelect").innerHTML = `<option value="">-- Enter walk-in / manual --</option>` + allAdminPatients.map(p => `<option value="${esc(p.uid)}">${esc(p.fullName)} (${esc(p.email)})</option>`).join("");
+      } catch (ex) { err.textContent = "Firestore error: " + ex.message; err.style.display = "block"; }
+    }
+
+    function switchAdminTab(tab) {
+      document.getElementById("adminTabBookings").classList.toggle("active", tab === "bookings");
+      document.getElementById("adminTabPatients").classList.toggle("active", tab === "patients");
+      document.getElementById("adminBookingsPanel").style.display = tab === "bookings" ? "block" : "none";
+      document.getElementById("adminPatientsPanel").style.display = tab === "patients" ? "block" : "none";
+    }
+
+    function renderAdminBookingsTable() {
+      const q = document.getElementById("adminSearchInput").value.trim().toLowerCase();
+      const d = document.getElementById("adminDeptFilter").value, st = document.getElementById("adminStatusFilter").value;
+      const list = allAdminBookings.filter(b => (d==="all"||(b.departmentId||b.department)===d) && (st==="all"||(b.status||"Confirmed")===st) && (!q || [b.refId,b.patientName,b.phone,b.email,b.doctorName].some(v=>(v||"").toLowerCase().includes(q))));
+      const tb = document.getElementById("adminBookingsTbody");
+      if (!list.length) { tb.innerHTML = `<tr><td colspan="6" style="text-align:center;padding:28px;color:var(--slate-500);">No bookings found.</td></tr>`; return; }
+      tb.innerHTML = list.map(b => {
+        const s = b.status || "Confirmed";
+        return `<tr>
+          <td><strong>${esc(b.refId)}</strong></td>
+          <td><strong>${esc(b.patientName)}</strong><div style="font-size:0.78rem;color:var(--slate-500);">${esc(b.phone)} • ${esc(b.email)}</div></td>
+          <td><span class="doc-dept-pill">${esc(b.department)}</span><div><strong>${esc(b.doctorName)}</strong></div></td>
+          <td><strong>${esc(b.date)}</strong><div style="font-size:0.8rem;">${esc(b.time)}</div></td>
+          <td><span class="status-badge status-${esc(s)}">${esc(s)}</span><br><select class="status-select" onchange="updateAdminBookingStatus('${b.firestoreId}', this.value)"><option ${s==="Confirmed"?"selected":""}>Confirmed</option><option ${s==="Pending"?"selected":""}>Pending</option><option ${s==="Completed"?"selected":""}>Completed</option><option ${s==="Cancelled"?"selected":""}>Cancelled</option></select></td>
+          <td><button class="btn btn-outline btn-xs" onclick="openAdminBookingModal('${b.firestoreId}')">Edit</button> <button class="btn btn-danger-soft btn-xs" onclick="deleteAdminBooking('${b.firestoreId}')">Delete</button></td>
+        </tr>`;
+      }).join("");
+    }
+
+    function renderAdminPatientsTable() {
+      const tb = document.getElementById("adminPatientsTbody");
+      tb.innerHTML = allAdminPatients.length ? allAdminPatients.map(p => `<tr><td><strong>${esc(p.fullName)}</strong></td><td>${esc(p.email)}</td><td>${esc(p.phone||"—")}</td><td>${allAdminBookings.filter(b=>b.userId===p.uid).length}</td><td><button class="btn btn-soft btn-xs" onclick="openAdminBookingForPatient('${esc(p.uid)}')">+ Book</button></td></tr>`).join("") : `<tr><td colspan="5" style="text-align:center;padding:24px;">No registered patients yet.</td></tr>`;
+    }
+
+    async function updateAdminBookingStatus(id, status) {
+      try { await updateDoc(doc(db, "appointments", id), { status }); await refreshAdminData(); }
+      catch (ex) { alert("Update failed: " + ex.message); }
+    }
+    async function deleteAdminBooking(id) {
+      if (!confirm("Delete this booking?")) return;
+      try { await deleteDoc(doc(db, "appointments", id)); await refreshAdminData(); }
+      catch (ex) { alert("Delete failed: " + ex.message); }
+    }
+
+    function initAdminFormOptions() {
+      departments.forEach(d => {
+        document.getElementById("adminDeptFilter").innerHTML += `<option value="${d.id}">${d.name}</option>`;
+        document.getElementById("adminBookDept").innerHTML += `<option value="${d.id}">${d.name}</option>`;
+      });
+      document.getElementById("adminBookTime").innerHTML = timeSlots.map(s => `<option value="${s}">${s}</option>`).join("");
+    }
+    function populateAdminDoctorSelect(selId = null) {
+      const docs = getDoctorsByDept(document.getElementById("adminBookDept").value);
+      document.getElementById("adminBookDoctor").innerHTML = docs.map(d => `<option value="${d.id}">${d.name} (${d.fee})</option>`).join("");
+      if (selId) document.getElementById("adminBookDoctor").value = String(selId);
+    }
+    function fillPatientFromSelect() {
+      const p = allAdminPatients.find(x => x.uid === document.getElementById("adminQuickPatientSelect").value);
+      if (p) {
+        document.getElementById("adminPatientName").value = p.fullName || "";
+        document.getElementById("adminPatientPhone").value = p.phone || "";
+        document.getElementById("adminPatientEmail").value = p.email || "";
+      }
+    }
+    function openAdminBookingForPatient(uid) { openAdminBookingModal(null); document.getElementById("adminQuickPatientSelect").value = uid; fillPatientFromSelect(); }
+    function openAdminBookingModal(id = null) {
+      document.getElementById("adminBookingModalError").style.display = "none";
+      document.getElementById("adminBookingForm").reset();
+      document.getElementById("adminEditFirestoreId").value = id || "";
+      const today = new Date().toISOString().split("T")[0];
+      if (id) {
+        const b = allAdminBookings.find(x => x.firestoreId === id);
+        document.getElementById("adminModalTitle").textContent = "Edit Booking";
+        document.getElementById("quickPatientWrap").style.display = "none";
+        document.getElementById("adminBookDept").value = b.departmentId || departments[0].id;
+        populateAdminDoctorSelect(b.doctorId);
+        document.getElementById("adminBookDate").value = b.date || today;
+        document.getElementById("adminBookTime").value = b.time || timeSlots[0];
+        document.getElementById("adminPatientName").value = b.patientName || "";
+        document.getElementById("adminPatientPhone").value = b.phone || "";
+        document.getElementById("adminPatientEmail").value = b.email || "";
+        document.getElementById("adminBookStatus").value = b.status || "Confirmed";
+        document.getElementById("adminVisitReason").value = b.reason || "";
+      } else {
+        document.getElementById("adminModalTitle").textContent = "Add New Booking";
+        document.getElementById("quickPatientWrap").style.display = "block";
+        document.getElementById("adminBookDept").value = departments[0].id;
+        populateAdminDoctorSelect();
+        document.getElementById("adminBookDate").value = today;
+      }
+      document.getElementById("adminBookingModal").classList.add("open");
+    }
+    function closeAdminBookingModal() { document.getElementById("adminBookingModal").classList.remove("open"); }
+    async function saveAdminBooking(e) {
+      e.preventDefault();
+      const err = document.getElementById("adminBookingModalError"), btn = document.getElementById("adminSaveBookingBtn");
+      err.style.display = "none"; btn.disabled = true; btn.textContent = "Saving...";
+      try {
+        const id = document.getElementById("adminEditFirestoreId").value;
+        const deptId = document.getElementById("adminBookDept").value, docId = Number(document.getElementById("adminBookDoctor").value);
+        const docObj = doctors.find(d => d.id === docId), deptObj = departments.find(d => d.id === deptId);
+        const email = document.getElementById("adminPatientEmail").value.trim();
+        const matched = allAdminPatients.find(p => p.email?.toLowerCase() === email.toLowerCase());
+        const data = {
+          departmentId: deptId, department: deptObj.name, doctorId: docId, doctorName: docObj.name, fee: docObj.fee,
+          date: document.getElementById("adminBookDate").value, time: document.getElementById("adminBookTime").value,
+          patientName: document.getElementById("adminPatientName").value.trim(), phone: document.getElementById("adminPatientPhone").value.trim(),
+          email, status: document.getElementById("adminBookStatus").value, reason: document.getElementById("adminVisitReason").value.trim() || "General Consultation"
+        };
+        if (id) await updateDoc(doc(db, "appointments", id), data);
+        else await addDoc(collection(db, "appointments"), { ...data, userId: matched ? matched.uid : "walk-in", createdBy: "admin", refId: "WC-" + Math.floor(100000+Math.random()*900000), createdAtMs: Date.now(), createdAt: serverTimestamp() });
+        closeAdminBookingModal(); await refreshAdminData();
+      } catch (ex) { err.textContent = ex.message; err.style.display = "block"; }
+      finally { btn.disabled = false; btn.textContent = "Save Booking"; }
+    }
+
+    // PATIENT BOOKING
+    function startBookingFlow(deptId = null, doctorId = null) {
+      if (!currentUser) { pendingBooking = { deptId, doctorId }; openAuthModal("signin", true); return; }
+      openBookingModal(deptId, doctorId);
+    }
+    function openBookingModal(deptId = null, doctorId = null) {
+      document.getElementById("bookingErrorBanner").style.display = "none";
+      document.getElementById("bookingForm").style.display = "block";
+      document.getElementById("bookingConfirmation").style.display = "none";
+      document.getElementById("bookingForm").reset();
+      if (currentUser) {
+        document.getElementById("patientName").value = currentUserProfile?.fullName || "";
+        document.getElementById("patientPhone").value = currentUserProfile?.phone || "";
+        document.getElementById("patientEmail").value = currentUserProfile?.email || currentUser.email || "";
+      }
+      document.getElementById("bookDate").value = new Date().toISOString().split("T")[0];
+      document.getElementById("bookDept").value = deptId || departments[0].id;
+      populateDoctorSelect(doctorId);
+      const first = document.querySelector(".slot-btn"); if (first) selectTimeSlot(first, timeSlots[0]);
+      document.getElementById("bookingModal").classList.add("open");
+    }
+    function closeBookingModal() { document.getElementById("bookingModal").classList.remove("open"); }
+    function initBookingFormOptions() {
+      document.getElementById("bookDept").innerHTML = departments.map(d => `<option value="${d.id}">${d.name}</option>`).join("");
+      document.getElementById("timeSlotsGrid").innerHTML = timeSlots.map(s => `<button type="button" class="slot-btn" onclick="selectTimeSlot(this,'${s}')">${s}</button>`).join("");
+      document.getElementById("bookDate").min = new Date().toISOString().split("T")[0];
+    }
+    function populateDoctorSelect(sel = null) {
+      const docs = getDoctorsByDept(document.getElementById("bookDept").value);
+      document.getElementById("bookDoctor").innerHTML = docs.map(d => `<option value="${d.id}">${d.name} (${d.fee})</option>`).join("");
+      if (sel) document.getElementById("bookDoctor").value = String(sel);
+    }
+    function selectTimeSlot(btn, slot) {
+      document.querySelectorAll(".slot-btn").forEach(b => b.classList.remove("selected"));
+      btn.classList.add("selected"); document.getElementById("selectedTimeSlot").value = slot;
+    }
+    async function submitAppointment(e) {
+      e.preventDefault();
+      const err = document.getElementById("bookingErrorBanner"), btn = document.getElementById("confirmBookingBtn");
+      err.style.display = "none"; btn.disabled = true; btn.textContent = "Booking...";
+      try {
+        const deptId = document.getElementById("bookDept").value, docId = Number(document.getElementById("bookDoctor").value);
+        const docObj = doctors.find(d => d.id === docId), deptObj = departments.find(d => d.id === deptId);
+        const booking = {
+          userId: currentUser.uid, refId: "WC-" + Math.floor(100000+Math.random()*900000),
+          departmentId: deptId, department: deptObj.name, doctorId: docId, doctorName: docObj.name, fee: docObj.fee,
+          date: document.getElementById("bookDate").value, time: document.getElementById("selectedTimeSlot").value,
+          patientName: document.getElementById("patientName").value.trim(), phone: document.getElementById("patientPhone").value.trim(),
+          email: document.getElementById("patientEmail").value.trim(), reason: document.getElementById("visitReason").value.trim() || "General Consultation",
+          status: "Confirmed", createdBy: "patient", createdAtMs: Date.now(), createdAt: serverTimestamp()
+        };
+        const ref = await addDoc(collection(db, "appointments"), booking);
+        userAppointments.unshift({ firestoreId: ref.id, ...booking }); updateAuthUI();
+        document.getElementById("confirmationDetails").innerHTML = `<div><strong>Ref:</strong> ${booking.refId}</div><div><strong>Doctor:</strong> ${booking.doctorName}</div><div><strong>When:</strong> ${booking.date} at ${booking.time}</div>`;
+        document.getElementById("bookingForm").style.display = "none"; document.getElementById("bookingConfirmation").style.display = "block";
+      } catch (ex) { err.textContent = ex.message; err.style.display = "block"; }
+      finally { btn.disabled = false; btn.textContent = "Confirm Appointment"; }
+    }
+
+    async function openMyAppointments() {
+      if (!currentUser) { pendingBooking = "myBookings"; openAuthModal("signin", true); return; }
+      closeBookingModal();
+      await loadUserAppointments(currentUser.uid);
+      document.getElementById("myAppointmentsSubtitle").textContent = currentUser.email;
+      document.getElementById("appointmentsListContainer").innerHTML = userAppointments.length
+        ? userAppointments.map(a => `<div class="appointment-item"><div><span class="doc-dept-pill">${esc(a.department)} • ${esc(a.refId)}</span> <span class="status-badge status-${esc(a.status||"Confirmed")}">${esc(a.status||"Confirmed")}</span><h4>${esc(a.doctorName)}</h4><div>${esc(a.date)} at ${esc(a.time)}</div></div><button class="btn btn-danger-soft btn-xs" onclick="cancelAppointment('${a.firestoreId}')">Cancel</button></div>`).join("")
+        : `<p style="text-align:center;color:var(--slate-500);padding:20px;">No appointments scheduled yet.</p>`;
+      document.getElementById("myAppointmentsModal").classList.add("open");
+    }
+    function closeMyAppointments() { document.getElementById("myAppointmentsModal").classList.remove("open"); }
+    async function cancelAppointment(id) { await deleteDoc(doc(db, "appointments", id)); await openMyAppointments(); updateAuthUI(); }
+
+    // PUBLIC PAGES
+    function navigateTo(page) {
+      document.querySelectorAll(".page-view").forEach(el => el.classList.remove("active"));
+      document.getElementById(`page-${page}`)?.classList.add("active");
+      document.querySelectorAll(".nav-link").forEach(b => b.classList.toggle("active", b.dataset.page === page));
+      document.getElementById("mobileMenu").classList.remove("open");
+      window.location.hash = page; window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+    function toggleMobileMenu() { document.getElementById("mobileMenu").classList.toggle("open"); }
+    function goToDepartmentDoctors(id) { document.getElementById("doctorDeptFilter").value = id; renderDoctorsPage(); navigateTo("doctors"); }
+
+    const renderDocCard = (d) => `<div class="card doc-card"><div><div class="doc-header"><div class="avatar" style="background:${d.color};">${getInitials(d.name)}</div><div><span class="doc-dept-pill">${d.department}</span><h3>${d.name}</h3><div style="font-size:0.82rem;color:var(--slate-500);">${d.qualification}</div></div></div><ul class="doc-info-list"><li><span>Focus</span><strong>${d.focus}</strong></li><li><span>Experience</span><strong>${d.experience}</strong></li><li><span>Days</span><strong>${d.availability}</strong></li><li><span>Fee</span><strong>${d.fee}</strong></li></ul></div><button class="btn btn-primary" style="width:100%;" onclick="startBookingFlow('${d.department}',${d.id})">Book Appointment</button></div>`;
+
+    function renderAllPages() {
+      document.getElementById("homeDepartmentsGrid").innerHTML = departments.map(d => `<div class="card"><div class="dept-icon">${d.icon}</div><h3>${d.name}</h3><p>${d.description}</p><div class="dept-meta"><span><strong>${getDoctorsByDept(d.id).length} Doctors</strong></span><button class="btn btn-soft btn-sm" onclick="goToDepartmentDoctors('${d.id}')">View Doctors →</button></div></div>`).join("");
+      document.getElementById("homeFeaturedDoctors").innerHTML = doctors.filter(d => [1,4,7,10,13,16].includes(d.id)).map(renderDocCard).join("");
+      document.getElementById("departmentsDetailContainer").innerHTML = departments.map(d => `<div class="dept-detail-card"><div class="dept-detail-top"><div style="display:flex;gap:14px;"><div class="dept-icon">${d.icon}</div><div><h2>${d.name}</h2><p style="color:var(--slate-600);">${d.description}</p></div></div><button class="btn btn-primary btn-sm" onclick="startBookingFlow('${d.id}')">Book in ${d.name}</button></div><div class="dept-doctors-strip">${getDoctorsByDept(d.id).map(doc => `<div class="mini-doc-card"><strong>${doc.name}</strong><div style="font-size:0.82rem;color:var(--slate-600);">${doc.focus} • ${doc.fee}</div><button class="btn btn-outline btn-sm" onclick="startBookingFlow('${d.id}',${doc.id})">Book</button></div>`).join("")}</div></div>`).join("");
+      departments.forEach(d => document.getElementById("doctorDeptFilter").innerHTML += `<option value="${d.id}">${d.name}</option>`);
+      renderDoctorsPage();
+    }
+
+    function renderDoctorsPage() {
+      const q = document.getElementById("doctorSearchInput").value.trim().toLowerCase(), f = document.getElementById("doctorDeptFilter").value;
+      const list = doctors.filter(d => (f==="all"||d.department===f) && (!q||[d.name,d.focus,d.qualification,d.department].some(v=>v.toLowerCase().includes(q))));
+      document.getElementById("doctorsGrid").innerHTML = list.map(renderDocCard).join("");
+      document.getElementById("noDoctorsMsg").style.display = list.length ? "none" : "block";
+    }
+
+    Object.assign(window, {
+      navigateTo, toggleMobileMenu, goToDepartmentDoctors, renderDoctorsPage, startBookingFlow,
+      openBookingModal, closeBookingModal, populateDoctorSelect, selectTimeSlot, submitAppointment,
+      openMyAppointments, closeMyAppointments, cancelAppointment, openAuthModal, closeAuthModal,
+      switchAuthTab, handleSignIn, handleSignUp, handleSignOut, handleAdminLogin, refreshAdminData,
+      switchAdminTab, renderAdminBookingsTable, updateAdminBookingStatus, deleteAdminBooking,
+      openAdminBookingModal, closeAdminBookingModal, populateAdminDoctorSelect, fillPatientFromSelect,
+      openAdminBookingForPatient, saveAdminBooking
+    });
+
+    window.addEventListener("DOMContentLoaded", () => {
+      renderAllPages(); initBookingFormOptions(); initAdminFormOptions(); updateAuthUI();
+      const h = window.location.hash.replace("#", "");
+      if (["home","about","departments","doctors","admin"].includes(h)) navigateTo(h);
+      document.querySelectorAll(".modal-backdrop").forEach(b => b.addEventListener("click", (e) => { if (e.target === b) b.classList.remove("open"); }));
+    });
+  </script>
+</body>
+</html>
